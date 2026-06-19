@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
 
@@ -19,6 +19,29 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
+  const deleteProduct = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+      });
+
+      setProducts((prev) =>
+        prev.filter((p) => p._id !== id)
+      );
+
+      alert("Product Deleted");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete product");
+    }
+  };
+
   const filteredProducts = products.filter(
     (product: any) =>
       product.name
@@ -28,89 +51,90 @@ export default function ProductsPage() {
         product.category === category)
   );
 
+  const categories = [
+    "Paints",
+    "Cement",
+    "Plumbing",
+    "Electrical",
+    "Hardware",
+    "Sanitary",
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto p-10">
+    <div className="min-h-screen bg-black text-white">
+      <div className="max-w-7xl mx-auto px-6 py-20">
 
-      <h1 className="text-4xl font-bold mb-8">
-        Products
-      </h1>
+        <h1 className="text-5xl font-bold mb-10">
+          Manage Products
+        </h1>
 
-      <div className="grid md:grid-cols-2 gap-4 mb-8">
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
 
-        <input
-          placeholder="Search products..."
-          className="border p-3 rounded-lg"
-          value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-        />
+          <input
+            placeholder="Search products..."
+            className="
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+            "
+            value={search}
+            onChange={(e) =>
+              setSearch(e.target.value)
+            }
+          />
 
-        <select
-          className="border p-3 rounded-lg"
-          value={category}
-          onChange={(e) =>
-            setCategory(e.target.value)
-          }
-        >
-          <option value="">
-            All Categories
-          </option>
-
-          <option value="Paints">
-            Paints
-          </option>
-
-          <option value="Cement">
-            Cement
-          </option>
-
-          <option value="Steel">
-            Steel
-          </option>
-
-          <option value="Tiles">
-            Tiles
-          </option>
-
-          <option value="Plumbing">
-            Plumbing
-          </option>
-
-          <option value="Electrical">
-            Electrical
-          </option>
-
-          <option value="Hardware">
-            Hardware
-          </option>
-        </select>
-
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-6">
-
-        {filteredProducts.map(
-          (product: any) => (
-            <Link
-              key={product._id}
-              href={`/products/${product._id}`}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setCategory("")}
+              className={`px-4 py-2 rounded-full border ${
+                category === ""
+                  ? "bg-orange-500 border-orange-500"
+                  : "bg-zinc-900 border-zinc-800"
+              }`}
             >
+              All
+            </button>
+
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() =>
+                  setCategory(cat)
+                }
+                className={`px-4 py-2 rounded-full border ${
+                  category === cat
+                    ? "bg-orange-500 border-orange-500"
+                    : "bg-zinc-900 border-zinc-800"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+
+          {filteredProducts.map(
+            (product: any) => (
               <div
+                key={product._id}
                 className="
-                  bg-white
-                  rounded-xl
-                  shadow-lg
+                  bg-zinc-950
+                  border
+                  border-zinc-800
+                  rounded-3xl
                   p-6
-                  hover:shadow-2xl
-                  transition
-                  cursor-pointer
                 "
               >
                 <span
                   className="
-                    bg-orange-100
-                    text-orange-600
+                    bg-orange-500/10
+                    text-orange-400
                     px-3
                     py-1
                     rounded-full
@@ -124,32 +148,59 @@ export default function ProductsPage() {
                   {product.name}
                 </h2>
 
-                <p className="text-gray-500">
+                <p className="text-zinc-400 mt-2">
                   {product.brand}
                 </p>
 
-                <p
-                  className="
-                    text-orange-600
-                    text-2xl
-                    font-bold
-                    mt-4
-                  "
-                >
+                <p className="text-3xl font-bold text-white mt-4">
                   ₹{product.price}
                 </p>
 
-                <p>
-                  Stock:
-                  {product.stock}
+                <p className="text-zinc-500 mt-2">
+                  Stock: {product.stock}
                 </p>
+
+                <div className="flex gap-2 mt-6">
+
+                  <Link
+                    href={`/admin/edit/${product._id}`}
+                    className="
+                      flex-1
+                      text-center
+                      bg-blue-600
+                      hover:bg-blue-700
+                      text-white
+                      py-3
+                      rounded-xl
+                    "
+                  >
+                    Edit
+                  </Link>
+
+                  <button
+                    onClick={() =>
+                      deleteProduct(product._id)
+                    }
+                    className="
+                      flex-1
+                      bg-red-600
+                      hover:bg-red-700
+                      text-white
+                      py-3
+                      rounded-xl
+                    "
+                  >
+                    Delete
+                  </button>
+
+                </div>
               </div>
-            </Link>
-          )
-        )}
+            )
+          )}
+
+        </div>
 
       </div>
-
     </div>
   );
 }
