@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const products = [
   "Hardware",
   "Electrical",
@@ -21,21 +23,27 @@ export default function Products() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
           {products.map((item) => (
-            <div
+            <Link
               key={item}
-              className="
-                border
-                border-zinc-800
-                rounded-3xl
-                p-10
-                hover:border-white
-                transition
-              "
+              href={`/products?category=${item}`}
             >
-              <h3 className="text-3xl font-semibold">
-                {item}
-              </h3>
-            </div>
+              <div
+                className="
+                  border
+                  border-zinc-800
+                  rounded-3xl
+                  p-10
+                  hover:border-white
+                  hover:bg-zinc-900
+                  transition
+                  cursor-pointer
+                "
+              >
+                <h3 className="text-3xl font-semibold">
+                  {item}
+                </h3>
+              </div>
+            </Link>
           ))}
 
         </div>

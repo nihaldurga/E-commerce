@@ -29,122 +29,188 @@ export default function AdminPage() {
     const res = await fetch("/api/products", {
       method: "POST",
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     });
 
-    const data = await res.json();
-
-    console.log(data);
+    await res.json();
 
     alert("Product Added");
+
+    setForm({
+      name: "",
+      category: "",
+      brand: "",
+      price: "",
+      stock: "",
+      description: "",
+    });
   };
 
+  const categories = [
+    "Paints",
+    "Cement",
+    "Plumbing",
+    "Electrical",
+    "Hardware",
+    "Sanitary",
+  ];
+
   return (
-    <div className="max-w-3xl mx-auto p-10">
+    <div className="min-h-screen bg-black text-white">
+      <div className="max-w-4xl mx-auto px-6 py-20">
 
-      <h1 className="text-4xl font-bold mb-8">
-        Admin Dashboard
-      </h1>
+        <h1 className="text-5xl font-bold mb-12">
+          Admin Dashboard
+        </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+        >
+          <input
+            name="name"
+            value={form.name}
+            placeholder="Product Name"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
 
-        <input
-          name="name"
-          placeholder="Product Name"
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
+          <div>
+            <p className="text-zinc-400 mb-4">
+              Select Category
+            </p>
 
-            <select
-        name="category"
-        onChange={(e) =>
-          setForm({
-            ...form,
-            category: e.target.value,
-          })
-        }
-        className="border p-3 w-full"
-      >
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      category: cat,
+                    })
+                  }
+                  className={`
+                    p-4
+                    rounded-xl
+                    border
+                    transition-all
+                    ${
+                      form.category === cat
+                        ? "bg-orange-500 border-orange-500 text-white"
+                        : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-600"
+                    }
+                  `}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        <option value="">
-          Select Category
-        </option>
+          <input
+            name="brand"
+            value={form.brand}
+            placeholder="Brand"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
 
-        <option value="Paints">
-          Paints
-        </option>
+          <input
+            name="price"
+            value={form.price}
+            placeholder="Price"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
 
-        <option value="Cement">
-          Cement
-        </option>
+          <input
+            name="stock"
+            value={form.stock}
+            placeholder="Stock"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
 
-        <option value="Steel">
-          Steel
-        </option>
+          <input
+            name="description"
+            value={form.description}
+            placeholder="Description"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
 
-        <option value="Tiles">
-          Tiles
-        </option>
+          <button
+            type="submit"
+            className="
+              w-full
+              bg-orange-500
+              hover:bg-orange-600
+              text-white
+              font-semibold
+              py-4
+              rounded-xl
+              transition
+            "
+          >
+            Add Product
+          </button>
+        </form>
 
-        <option value="Plumbing">
-          Plumbing
-        </option>
-
-        <option value="Electrical">
-          Electrical
-        </option>
-
-        <option value="Hardware">
-          Hardware
-        </option>
-
-      </select>
-
-        <input
-          name="brand"
-          required
-          placeholder="Brand"
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="price"
-          required
-          placeholder="Price"
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="stock"
-          required
-          placeholder="Stock"
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="description"
-          required
-          placeholder="Description"
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-<button
-  className="bg-orange-600 text-white px-6 py-3 rounded-lg"
->
-          Add Product
-        </button>
-
-      </form>
-
+      </div>
     </div>
   );
 }
