@@ -3,18 +3,19 @@ import { connectDB } from "@/lib/mongodb";
 import Product from "@/models/Product";
 
 export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  request,
+  { params }
 ) {
   try {
     await connectDB();
 
-    const { id } = await params;
+    const { id } = params;
 
-    const product = await Product.findById(id);
+    const product =
+      await Product.findById(id);
 
     return NextResponse.json(product);
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
       { error: error.message },
       { status: 500 }
@@ -23,34 +24,35 @@ export async function GET(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  request,
+  { params }
 ) {
   try {
     await connectDB();
 
-    const { id } = await params;
+    const { id } = params;
 
     await Product.findByIdAndDelete(id);
 
     return NextResponse.json({
       message: "Deleted Successfully",
     });
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
       { error: error.message },
       { status: 500 }
     );
   }
 }
+
 export async function PUT(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  request,
+  { params }
 ) {
   try {
     await connectDB();
 
-    const { id } = await params;
+    const { id } = params;
 
     const body =
       await request.json();
@@ -64,7 +66,7 @@ export async function PUT(
 
     return NextResponse.json(product);
 
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
       {
         error: error.message,

@@ -12,18 +12,14 @@ export default function AdminPage() {
     description: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (
-    e: React.FormEvent
-  ) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const res = await fetch("/api/products", {
@@ -60,7 +56,6 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-4xl mx-auto px-6 py-20">
-
         <h1 className="text-5xl font-bold mb-12">
           Admin Dashboard
         </h1>
@@ -209,7 +204,6 @@ export default function AdminPage() {
             Add Product
           </button>
         </form>
-
       </div>
     </div>
   );

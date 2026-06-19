@@ -35,13 +35,11 @@ ${form.requirement}`;
 
   return (
     <div className="max-w-5xl mx-auto p-10">
-
       <h1 className="text-5xl font-bold mb-8">
         Painting Service
       </h1>
 
       <div className="space-y-4">
-
         <input
           placeholder="Name"
           className="border p-3 w-full rounded-lg"
@@ -115,9 +113,7 @@ ${form.requirement}`;
         >
           Request Painting Service
         </button>
-
       </div>
-
     </div>
   );
 }

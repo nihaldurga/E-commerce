@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
 
@@ -19,7 +19,7 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
-  const deleteProduct = async (id: string) => {
+  const deleteProduct = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this product?"
     );
@@ -43,7 +43,7 @@ export default function ProductsPage() {
   };
 
   const filteredProducts = products.filter(
-    (product: any) =>
+    (product) =>
       product.name
         .toLowerCase()
         .includes(search.toLowerCase()) &&
@@ -63,13 +63,11 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 py-20">
-
         <h1 className="text-5xl font-bold mb-10">
           Manage Products
         </h1>
 
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-
           <input
             placeholder="Search products..."
             className="
@@ -114,13 +112,11 @@ export default function ProductsPage() {
               </button>
             ))}
           </div>
-
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-
           {filteredProducts.map(
-            (product: any) => (
+            (product) => (
               <div
                 key={product._id}
                 className="
@@ -161,7 +157,6 @@ export default function ProductsPage() {
                 </p>
 
                 <div className="flex gap-2 mt-6">
-
                   <Link
                     href={`/admin/edit/${product._id}`}
                     className="
@@ -192,14 +187,11 @@ export default function ProductsPage() {
                   >
                     Delete
                   </button>
-
                 </div>
               </div>
             )
           )}
-
         </div>
-
       </div>
     </div>
   );

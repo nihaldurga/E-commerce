@@ -34,37 +34,30 @@ export default function EditProduct() {
     fetchProduct();
   }, [id]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (
-    e: React.FormEvent
-  ) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     await fetch(`/api/products/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     });
 
     alert("Updated Successfully");
-
     router.push("/admin/products");
   };
 
   return (
     <div className="max-w-3xl mx-auto p-10">
-
       <h1 className="text-4xl font-bold mb-8">
         Edit Product
       </h1>
@@ -73,7 +66,6 @@ export default function EditProduct() {
         onSubmit={handleSubmit}
         className="space-y-4"
       >
-
         <input
           name="name"
           value={form.name}
@@ -115,10 +107,12 @@ export default function EditProduct() {
           onChange={handleChange}
           className="border p-3 w-full"
         />
+
         <input
-        type="file"
-        accept="image/*"
+          type="file"
+          accept="image/*"
         />
+
         <button
           className="
             bg-green-600
@@ -130,9 +124,7 @@ export default function EditProduct() {
         >
           Update Product
         </button>
-
       </form>
-
     </div>
   );
 }

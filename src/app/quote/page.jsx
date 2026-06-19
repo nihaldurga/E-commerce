@@ -32,13 +32,11 @@ ${form.requirement}`;
 
   return (
     <div className="max-w-4xl mx-auto p-10">
-
       <h1 className="text-4xl font-bold mb-8">
         Request a Quote
       </h1>
 
       <div className="space-y-4">
-
         <input
           placeholder="Name"
           className="border p-3 w-full"
@@ -95,9 +93,7 @@ ${form.requirement}`;
         >
           Send Quote Request
         </button>
-
       </div>
-
     </div>
   );
 }

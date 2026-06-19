@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error("MONGODB_URI is missing");
 }
 
-let cached = (global as any).mongoose;
+let cached = global.mongoose;
 
 if (!cached) {
-  cached = (global as any).mongoose = {
+  cached = global.mongoose = {
     conn: null,
     promise: null,
   };
@@ -19,9 +19,15 @@ export async function connectDB() {
   if (cached.conn) {
     return cached.conn;
   }
-  console.log("Mongo URI:", MONGODB_URI.substring(0, 20));
+
+  console.log(
+    "Mongo URI:",
+    MONGODB_URI.substring(0, 20)
+  );
+
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI);
+    cached.promise =
+      mongoose.connect(MONGODB_URI);
   }
 
   cached.conn = await cached.promise;
