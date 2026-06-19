@@ -52,7 +52,7 @@ export default async function ProductPage({
         </p>
 
         <a
-          href={`https://wa.me/919550511020?text=${encodeURIComponent(
+          href={`https://wa.me/919490583898?text=${encodeURIComponent(
             `Hello Sri Durga Traders,
 
 Product: ${product.name}
