@@ -1,43 +1,35 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur border-b border-zinc-800">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         <div className="flex items-center gap-3">
           <Image
             src="/logo.png"
             alt="Sri Durga Traders"
-           width={50}
-           height={50}
+            width={45}
+            height={45}
           />
-
-          <div>
-            <h1 className="font-bold text-xl">
-              Sri Durga Traders
-            </h1>
-
-            <p className="text-sm text-gray-500">
-              Construction Materials
-            </p>
-          </div>
+          <h1 className="font-bold text-xl text-white">
+            Sri Durga Traders
+          </h1>
         </div>
 
-        <div className="hidden md:flex gap-8">
-          <Link href="/">Home</Link>
-         <Link href="/products">
-  Products
-</Link>
-
-<Link href="/contact">
-  Contact
-</Link>
-         <Link href="/services">
-  Painting Service
-</Link>
+        <div className="hidden md:flex gap-8 text-zinc-300">
+          <a href="#products">Products</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </div>
+
+        <a
+          href="tel:+919490583898"
+          className="bg-white text-black px-5 py-2 rounded-lg font-medium"
+        >
+          Call Now
+        </a>
+
       </div>
     </nav>
   );

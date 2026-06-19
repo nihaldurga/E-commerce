@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Categories from "@/components/Categories";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import Products from "@/components/products";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import Contact from "@/components/contact";
 import Footer from "@/components/Footer";
 import WhatsappButton from "@/components/WhatsappButton";
 
@@ -11,9 +11,9 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <Products />
       <WhyChooseUs />
-      <Categories />
-      <FeaturedProducts />
+      <Contact />
       <Footer />
       <WhatsappButton />
     </>

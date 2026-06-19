@@ -1,47 +1,58 @@
-import Link from "next/link";
+import Image from "next/image";
+
 export default function Hero() {
   return (
-    <section className="min-h-[80vh] flex items-center justify-center">
+    <section className="bg-black text-white min-h-screen flex items-center">
 
-      <div className="text-center max-w-4xl">
+      <div className="max-w-7xl mx-auto px-6">
 
-        <h1 className="text-6xl font-bold">
-          Sri Durga Traders
-        </h1>
+        <div className="flex flex-col items-center text-center">
 
-        <h2 className="text-2xl mt-4 text-gray-600">
-          Paints, Cement, Steel, Tiles & Construction Materials
-        </h2>
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={120}
+            height={120}
+          />
 
-        <p className="mt-6 text-lg">
-          Your One Stop Destination For Construction Needs
-        </p>
-        <Link
-  href="/quote"
-  className="
-    bg-green-600
-    text-white
-    px-6
-    py-3
-    rounded-lg
-  "
->
-  Request Quote
-</Link>
-        <div className="flex justify-center gap-4 mt-8">
-          <button className="bg-orange-600 text-white px-6 py-3 rounded-lg">
-            Browse Products
-          </button>
+          <h1 className="text-6xl md:text-8xl font-bold mt-8">
+            Sri Durga
+          </h1>
 
-          <button className="border px-6 py-3 rounded-lg">
-            Request Quote
-          </button> 
-          
+          <h2 className="text-6xl md:text-8xl font-bold text-zinc-500">
+            Traders
+          </h2>
+
+          <p className="text-zinc-400 mt-8 max-w-2xl text-lg">
+            Hardware • Electrical • Plumbing • Sanitary • Paints
+          </p>
+
+          <p className="text-zinc-500 mt-4 max-w-xl">
+            Trusted supplier serving Vizianagaram with premium building materials.
+          </p>
+
+          <div className="flex gap-4 mt-10">
+
+            <a
+              href="#products"
+              className="bg-white text-black px-8 py-4 rounded-xl"
+            >
+              Browse Products
+            </a>
+
+            <a
+              href="/quote"
+              className="border border-zinc-700 px-8 py-4 rounded-xl"
+            >
+              Get Quote
+            </a>
+
+          </div>
+
         </div>
 
       </div>
 
     </section>
-    
   );
 }
