@@ -158,19 +158,19 @@ export default function ProductsPage() {
 
                 <div className="flex gap-2 mt-6">
                   <Link
-                    href={`/admin/edit/${product._id}`}
-                    className="
-                      flex-1
-                      text-center
-                      bg-blue-600
-                      hover:bg-blue-700
-                      text-white
-                      py-3
-                      rounded-xl
-                    "
-                  >
-                    Edit
-                  </Link>
+  href={`/admin/products/${product._id}`}
+  className="
+    flex-1
+    text-center
+    bg-blue-600
+    hover:bg-blue-700
+    text-white
+    py-3
+    rounded-xl
+  "
+>
+  Edit
+</Link>
 
                   <button
                     onClick={() =>
@@ -187,6 +187,7 @@ export default function ProductsPage() {
                   >
                     Delete
                   </button>
+
                 </div>
               </div>
             )

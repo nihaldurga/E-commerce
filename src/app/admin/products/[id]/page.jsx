@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
-export default function EditProduct() {
-  const { id } = useParams();
+export default function EditProductPage() {
+  const params = useParams();
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -18,21 +18,35 @@ export default function EditProduct() {
 
   useEffect(() => {
     async function fetchProduct() {
-      const res = await fetch(`/api/products/${id}`);
-      const data = await res.json();
+      try {
+        const res = await fetch(
+          `/api/products/${params.id}`
+        );
 
-      setForm({
-        name: data.name || "",
-        category: data.category || "",
-        brand: data.brand || "",
-        price: data.price || "",
-        stock: data.stock || "",
-        description: data.description || "",
-      });
+        const data = await res.json();
+
+        if (!data) {
+          alert("Product not found");
+          return;
+        }
+
+        setForm({
+          name: data.name || "",
+          category: data.category || "",
+          brand: data.brand || "",
+          price: data.price || "",
+          stock: data.stock || "",
+          description: data.description || "",
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
 
-    fetchProduct();
-  }, [id]);
+    if (params.id) {
+      fetchProduct();
+    }
+  }, [params.id]);
 
   const handleChange = (e) => {
     setForm({
@@ -44,87 +58,186 @@ export default function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch(`/api/products/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    const res = await fetch(
+      `/api/products/${params.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      }
+    );
 
-    alert("Updated Successfully");
-    router.push("/admin/products");
+    if (res.ok) {
+      alert("Product Updated");
+      router.push("/admin/products");
+    } else {
+      alert("Failed to update product");
+    }
   };
 
+  const categories = [
+    "Paints",
+    "Cement",
+    "Plumbing",
+    "Electrical",
+    "Hardware",
+    "Sanitary",
+  ];
+
   return (
-    <div className="max-w-3xl mx-auto p-10">
-      <h1 className="text-4xl font-bold mb-8">
-        Edit Product
-      </h1>
+    <div className="min-h-screen bg-black text-white">
+      <div className="max-w-4xl mx-auto px-6 py-20">
+        <h1 className="text-5xl font-bold mb-12">
+          Edit Product
+        </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
-        <input
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="brand"
-          value={form.brand}
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="price"
-          value={form.price}
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="stock"
-          value={form.stock}
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          name="description"
-          value={form.description}
-          onChange={handleChange}
-          className="border p-3 w-full"
-        />
-
-        <input
-          type="file"
-          accept="image/*"
-        />
-
-        <button
-          className="
-            bg-green-600
-            text-white
-            px-6
-            py-3
-            rounded-lg
-          "
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
         >
-          Update Product
-        </button>
-      </form>
+          <input
+            name="name"
+            value={form.name}
+            placeholder="Product Name"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
+
+          <div>
+            <p className="text-zinc-400 mb-4">
+              Select Category
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      category: cat,
+                    })
+                  }
+                  className={`
+                    p-4
+                    rounded-xl
+                    border
+                    transition-all
+                    ${
+                      form.category === cat
+                        ? "bg-orange-500 border-orange-500 text-white"
+                        : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-600"
+                    }
+                  `}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <input
+            name="brand"
+            value={form.brand}
+            placeholder="Brand"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
+
+          <input
+            name="price"
+            value={form.price}
+            placeholder="Price"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
+
+          <input
+            name="stock"
+            value={form.stock}
+            placeholder="Stock"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
+
+          <input
+            name="description"
+            value={form.description}
+            placeholder="Description"
+            onChange={handleChange}
+            className="
+              w-full
+              bg-zinc-900
+              border
+              border-zinc-800
+              rounded-xl
+              p-4
+              text-white
+              focus:outline-none
+              focus:border-orange-500
+            "
+          />
+
+          <button
+            type="submit"
+            className="
+              w-full
+              bg-orange-500
+              hover:bg-orange-600
+              text-white
+              font-semibold
+              py-4
+              rounded-xl
+              transition
+            "
+          >
+            Update Product
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
