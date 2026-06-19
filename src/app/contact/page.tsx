@@ -16,7 +16,7 @@ export default function ContactPage() {
           <p>📍 Your Shop Address</p>
 
           <p className="mt-4">
-            📞 +91 95505 511020
+            📞 +91 9490583898
           </p>
 
           <p className="mt-4">
@@ -27,7 +27,7 @@ export default function ContactPage() {
         <div>
 
           <a
-            href="https://wa.me/919550511020"
+            href="https://wa.me/919490583898"
             target="_blank"
             className="
               block
@@ -43,7 +43,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="tel:+919550511020"
+            href="tel:+919490583898"
             className="
               block
               bg-orange-600
