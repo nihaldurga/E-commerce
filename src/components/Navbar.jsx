@@ -23,7 +23,7 @@ export default function Navbar() {
             <Link href="/products">
               Products
             </Link>
-           <a href="#about">About</a>
+           <Link href="/#about">About</Link>
           <a href="#contact">Contact</a>
         </div>
 
