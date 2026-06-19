@@ -1,7 +1,7 @@
-export default function contact() {
+export default function Contact() {
   return (
     <section
-      id="Contact"
+      id="contact"
       className="bg-black text-white py-24 border-t border-zinc-800"
     >
       <div className="max-w-7xl mx-auto px-6">

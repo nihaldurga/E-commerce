@@ -1,4 +1,4 @@
-const product = [
+const products = [
   "Hardware",
   "Electrical",
   "Plumbing",
@@ -6,10 +6,10 @@ const product = [
   "Paints",
 ];
 
-export default function products() {
+export default function Products() {
   return (
     <section
-      id="product"
+      id="products"
       className="bg-black text-white py-32"
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -20,7 +20,7 @@ export default function products() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {product.map((item) => (
+          {products.map((item) => (
             <div
               key={item}
               className="

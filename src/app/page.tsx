@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Products from "@/components/products";
+import Products from "@/components/Products";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import Contact from "@/components/contact";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsappButton from "@/components/WhatsappButton";
 
